@@ -10,6 +10,7 @@ public class AFN {
 	public AFN(){
 		this.inicial = new Estado();
 		this.alfabet = new Alfabeto();
+		this.ultimo = null;
 	}
 	
 	public AFN(Transicion transicion){
@@ -86,10 +87,10 @@ public class AFN {
 		this.ultimo = aux2;
 	}
 	
-	public void setTransicion(Transicion tran){
+	public void setTransicion(Transicion tran, Boolean aceptacion){
 		this.inicial.setTransicion(tran);
 		this.ultimo = tran.getEstado();
-		this.ultimo.setAceptacion(true);
+		this.ultimo.setAceptacion(aceptacion);
 	}
 	
 	public Transicion getTransicion(Simbolo sim){
@@ -143,7 +144,8 @@ public class AFN {
 	
 	public void resetImpresion(){
 		inicial.resetImpresion();
-		ultimo.resetImpresion();
+		if (ultimo != null)
+			ultimo.resetImpresion();
 	}
 	
 	public void imprimirAFN(){

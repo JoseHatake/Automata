@@ -8,9 +8,10 @@
 </head>
 <body>
 	<%
-		AFN afn1,afn2;
+		AFN afn1,afn2,especial;
 		afn1 = (AFN)session.getAttribute("afn1");
 		afn2 = (AFN)session.getAttribute("afn2");
+		especial = (AFN)session.getAttribute("especial");
 	%>
 	<h1>Clase AFN</h1>
 	<p>En el siguiente menú se muestras las opciones que se puede hacer con el autómata creado y que se muestra en el panel.</p>
@@ -54,13 +55,23 @@
 			<option value="2">B</option>
 		</select>
 		<br>
+		<input type="radio" name="menu" value="7" required>
+		<label for="unionEspecial">Unión especial</label>
+		<select name="cualEspecial">
+			<option value="AFN a unir al especial">AFN</option>
+			<option value="1">A</option>
+			<option value="2">B</option>
+		</select>
+		<br>
 		<input type="submit" value="Procesar">
 	</form>
 	<div class="contenedor">
 		<div>
+			<% if (afn1 != null){%>
 			<p>A <%=afn1%></p>	
 			<%
 				afn1.resetImpresion();
+			}
 			%>
 		</div>
 		<div>
@@ -68,6 +79,14 @@
 			<p>B <%=afn2%></p>	
 			<%
 				afn2.resetImpresion();
+			}
+			%>
+		</div>
+		<div>
+			<% if (especial != null){%>
+			<p>Especial <%=especial%></p>	
+			<%
+				especial.resetImpresion();
 			}
 			%>
 		</div>

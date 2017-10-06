@@ -67,10 +67,36 @@ public class Automata extends HttpServlet {
 			break;
 		case 6:
 			opcional(request,session);
+			break;
+		case 7:
+			unionEspecial(request,session);
 		default:
 			break;
 		}
 		rd.forward(request, response);
+	}
+
+	private void unionEspecial(HttpServletRequest request, HttpSession session) {
+		AFN afn,especial;
+		Integer opcion = Integer.parseInt(request.getParameter("cualEspecial"));
+		String afnName;
+		if (opcion == 1)
+			afnName = "afn1";
+		else
+			afnName = "afn2";
+		afn = (AFN) session.getAttribute(afnName);
+		especial = (AFN) session.getAttribute("especial");
+		if (especial == null) {
+			especial = new AFN();
+			especial.setTransicion(new Transicion(new Simbolo(),afn.getInicial()),false);
+			especial.setUltimo(null);
+		}
+		else {
+			especial.setTransicion(new Transicion(new Simbolo(),afn.getInicial()),false);
+			especial.setUltimo(null);
+		}
+		session.removeAttribute(afnName);
+		session.setAttribute("especial", especial);
 	}
 
 	private void opcional(HttpServletRequest request, HttpSession session) {
@@ -150,12 +176,12 @@ public class Automata extends HttpServlet {
 		char sim = simbolo.charAt(0);
 		if (session.getAttribute("afn1") == null) {
 			afn1 = new AFN();
-			afn1.setTransicion(new Transicion(new Simbolo(sim)));
+			afn1.setTransicion(new Transicion(new Simbolo(sim)),true);
 			session.setAttribute("afn1", afn1);
 		}
 		else{
 			afn2 = new AFN();
-			afn2.setTransicion(new Transicion(new Simbolo(sim)));
+			afn2.setTransicion(new Transicion(new Simbolo(sim)),true);
 			session.setAttribute("afn2", afn2);
 		}
 	}
