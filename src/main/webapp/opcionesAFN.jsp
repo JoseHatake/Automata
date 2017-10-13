@@ -8,9 +8,10 @@
 </head>
 <body>
 	<%
-		AFN afn1,afn2,especial;
+		AFN afn1,afn2,afn3,especial;
 		afn1 = (AFN)session.getAttribute("afn1");
 		afn2 = (AFN)session.getAttribute("afn2");
+		afn3 = (AFN)session.getAttribute("afn3");
 		especial = (AFN)session.getAttribute("especial");
 	%>
 	<h1>Clase AFN</h1>
@@ -22,14 +23,33 @@
 		<br>
 		<input type="radio" name="menu" value="2" required>
 		<label for="orden">Concatenar AFN's</label>
-		<select name="orden">
+		<select name="concatenar1">
 			<option value="Primer AFN">AFN</option>
 			<option value="1">A</option>
 			<option value="2">B</option>
+			<option value="3">C</option>
+		</select>
+		<select name="concatenar2">
+			<option value="Primer AFN">AFN</option>
+			<option value="1">A</option>
+			<option value="2">B</option>
+			<option value="3">C</option>
 		</select>
 		<br>
 		<input type="radio" name="menu" value="3" required>
 		<label for="">Unir AFN's</label>
+		<select name="cualUnir1">
+			<option value="Union 1">AFN</option>
+			<option value="1">A</option>
+			<option value="2">B</option>
+			<option value="3">C</option>
+		</select>
+		<select name="cualUnir2">
+			<option value="Union 2">AFN</option>
+			<option value="1">A</option>
+			<option value="2">B</option>
+			<option value="3">C</option>
+		</select>
 		<br>
 		<input type="radio" name="menu" value="4" required>
 		<label for="ckleene">Cerradura de Kleene *</label>
@@ -37,6 +57,7 @@
 			<option value="AFN a aplicar Kleene">AFN</option>
 			<option value="1">A</option>
 			<option value="2">B</option>
+			<option value="3">C</option>
 		</select>
 		<br>
 		<input type="radio" name="menu" value="5" required>
@@ -45,6 +66,7 @@
 			<option value="AFN a aplicar positiva">AFN</option>
 			<option value="1">A</option>
 			<option value="2">B</option>
+			<option value="3">C</option>
 		</select>
 		<br>
 		<input type="radio" name="menu" value="6" required>
@@ -53,6 +75,7 @@
 			<option value="AFN a aplicar opcional">AFN</option>
 			<option value="1">A</option>
 			<option value="2">B</option>
+			<option value="3">C</option>
 		</select>
 		<br>
 		<input type="radio" name="menu" value="7" required>
@@ -61,7 +84,9 @@
 			<option value="AFN a unir al especial">AFN</option>
 			<option value="1">A</option>
 			<option value="2">B</option>
+			<option value="3">C</option>
 		</select>
+		<input type="text" placeholder="Token a asignar" maxlength="3" name="token">
 		<br>
 		<input type="submit" value="Procesar">
 	</form>
@@ -79,6 +104,14 @@
 			<p>B <%=afn2%></p>	
 			<%
 				afn2.resetImpresion();
+			}
+			%>
+		</div>
+		<div>
+			<% if (afn3 != null){%>
+			<p>C <%=afn3%></p>	
+			<%
+				afn3.resetImpresion();
 			}
 			%>
 		</div>

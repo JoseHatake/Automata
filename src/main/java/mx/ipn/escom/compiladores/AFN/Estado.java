@@ -11,6 +11,7 @@ public class Estado {
 	private List<Transicion> transiciones;
 	private Integer cuentaTransiciones;//Transiciones de llegada al estado
 	private Boolean impreso;
+	private Integer token;
 	
 	public Estado(){
 		contadorID++;
@@ -19,6 +20,7 @@ public class Estado {
 		transiciones = new ArrayList<Transicion>();
 		cuentaTransiciones = 0;
 		impreso = false;
+		token = -1;
 	}
 	public Estado(Boolean aceptacion) {
 		contadorID++;
@@ -27,6 +29,13 @@ public class Estado {
 		transiciones = new ArrayList<Transicion>();
 		cuentaTransiciones = 0;
 		impreso = false;
+		token = -1;
+	}
+	public Integer getToken() {
+		return token;
+	}
+	public void setToken(Integer token) {
+		this.token = token;
 	}
 	/**
 	 * @return the id
@@ -109,6 +118,9 @@ public class Estado {
 		Boolean flag = true;
 		if (aceptacion) {
 			edo = "((" + this.id + "))";
+			if (token != -1) {
+				edo += "token : " + token;
+			}
 		}
 		else{
 			edo = "(" + this.id + ")";

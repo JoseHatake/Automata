@@ -79,13 +79,22 @@ public class Automata extends HttpServlet {
 	private void unionEspecial(HttpServletRequest request, HttpSession session) {
 		AFN afn,especial;
 		Integer opcion = Integer.parseInt(request.getParameter("cualEspecial"));
+		Integer token = Integer.parseInt(request.getParameter("token"));
 		String afnName;
-		if (opcion == 1)
-			afnName = "afn1";
-		else
-			afnName = "afn2";
+		switch(opcion) {
+			case 1:
+				afnName = "afn1";
+				break;
+			case 2:
+				afnName = "afn2";
+				break;
+			default:
+				afnName = "afn3";
+				break;
+		}
 		afn = (AFN) session.getAttribute(afnName);
 		especial = (AFN) session.getAttribute("especial");
+		afn.getUltimo().setToken(token);
 		if (especial == null) {
 			especial = new AFN();
 			especial.setTransicion(new Transicion(new Simbolo(),afn.getInicial()),false);
@@ -103,10 +112,17 @@ public class Automata extends HttpServlet {
 		AFN afn;
 		Integer opcion = Integer.parseInt(request.getParameter("cualOP"));
 		String afnName;
-		if (opcion == 1)
-			afnName = "afn1";
-		else
-			afnName = "afn2";
+		switch(opcion) {
+			case 1:
+				afnName = "afn1";
+				break;
+			case 2:
+				afnName = "afn2";
+				break;
+			default:
+				afnName = "afn3";
+				break;
+		}
 		afn = (AFN)session.getAttribute(afnName);
 		afn.opcional();
 		session.setAttribute(afnName, afn);
@@ -116,10 +132,17 @@ public class Automata extends HttpServlet {
 		AFN afn;
 		Integer opcion = Integer.parseInt(request.getParameter("cualP"));
 		String afnName;
-		if (opcion == 1)
-			afnName = "afn1";
-		else
-			afnName = "afn2";
+		switch(opcion) {
+			case 1:
+				afnName = "afn1";
+				break;
+			case 2:
+				afnName = "afn2";
+				break;
+			default:
+				afnName = "afn3";
+				break;
+		}
 		afn = (AFN)session.getAttribute(afnName);
 		afn.cerraduraPositiva();
 		session.setAttribute(afnName, afn);
@@ -129,10 +152,17 @@ public class Automata extends HttpServlet {
 		AFN afn;
 		Integer opcion = Integer.parseInt(request.getParameter("cualK"));
 		String afnName;
-		if (opcion == 1)
-			afnName = "afn1";
-		else
-			afnName = "afn2";
+		switch(opcion) {
+			case 1:
+				afnName = "afn1";
+				break;
+			case 2:
+				afnName = "afn2";
+				break;
+			default:
+				afnName = "afn3";
+				break;
+		}
 		afn = (AFN)session.getAttribute(afnName);
 		afn.cerraduraKleene();
 		session.setAttribute(afnName, afn);
@@ -140,38 +170,34 @@ public class Automata extends HttpServlet {
 
 	private void unirAFN(HttpServletRequest request, HttpSession session) {
 		AFN afn1,afn2;
-		afn1 = (AFN)session.getAttribute("afn1");
-		afn2 = (AFN)session.getAttribute("afn2");
+		Integer union1,union2;
+		union1 = Integer.parseInt(request.getParameter("cualUnir1"));
+		union2 = Integer.parseInt(request.getParameter("cualUnir2"));
+		afn1 = (AFN)session.getAttribute("afn"+union1);
+		afn2 = (AFN)session.getAttribute("afn"+union2);
 		if (afn2 != null) {
 			afn1.unir(afn2);
-			session.removeAttribute("afn2");
-			session.setAttribute("afn1", afn1);
+			session.removeAttribute("afn"+union2);
+			session.setAttribute("afn"+union1, afn1);
 		}
 	}
 
 	private void concatenarAFN(HttpServletRequest request, HttpSession session) {
 		AFN afn1,afn2;
-		Integer opcion;
-		afn1 = (AFN)session.getAttribute("afn1");
-		afn2 = (AFN)session.getAttribute("afn2");
-		opcion = Integer.parseInt(request.getParameter("orden"));
-		if (afn2 != null) {
-			if (opcion == 1) {
-				afn1.concatenar(afn2);
-				session.removeAttribute("afn2");
-				session.setAttribute("afn1", afn1);
-			}
-			else{
-				afn2.concatenar(afn1);
-				afn1 = afn2;
-				session.removeAttribute("afn2");
-				session.setAttribute("afn1", afn1);
-			}
+		Integer union1,union2;
+		union1 = Integer.parseInt(request.getParameter("concatenar1"));
+		union2 = Integer.parseInt(request.getParameter("concatenar2"));
+		afn1 = (AFN)session.getAttribute("afn"+union1);
+		afn2 = (AFN)session.getAttribute("afn"+union2);
+		if (afn1 != null && afn2 != null) {
+			afn1.concatenar(afn2);
+			session.removeAttribute("afn"+union2);
+			session.setAttribute("afn"+union1, afn1);
 		}
 	}
 
 	private void crearAFN(HttpServletRequest request, HttpSession session) {
-		AFN afn1,afn2;
+		AFN afn1,afn2,afn3;
 		String simbolo = request.getParameter("simbolo");
 		char sim = simbolo.charAt(0);
 		if (session.getAttribute("afn1") == null) {
@@ -179,10 +205,15 @@ public class Automata extends HttpServlet {
 			afn1.setTransicion(new Transicion(new Simbolo(sim)),true);
 			session.setAttribute("afn1", afn1);
 		}
-		else{
+		else if (session.getAttribute("afn2") == null){
 			afn2 = new AFN();
 			afn2.setTransicion(new Transicion(new Simbolo(sim)),true);
 			session.setAttribute("afn2", afn2);
+		}
+		else {
+			afn3 = new AFN();
+			afn3.setTransicion(new Transicion(new Simbolo(sim)),true);
+			session.setAttribute("afn3", afn3);
 		}
 	}
 }

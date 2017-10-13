@@ -19,7 +19,7 @@ public class AFN {
 		this.ultimo = this.inicial.getTransicion(transicion.getSim()).getEstado();
 		this.ultimo.setAceptacion(true);
 	}
-	
+
 	public void unir(AFN afn){
 		Estado aux1,aux2;
 		aux1 = new Estado();
