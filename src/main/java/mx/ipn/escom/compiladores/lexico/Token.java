@@ -1,20 +1,20 @@
 package mx.ipn.escom.compiladores.lexico;
 
 public class Token {
-	final static Integer ERROR = -1;
-	final static Integer FIN = 0;
-	final static Integer NUMERO = 10;
-	final static Integer MAS = 20;
-	final static Integer MENOS = 30;
-	final static Integer POR = 40;
-	final static Integer ENTRE = 50;
-	final static Integer PARENTESIS_IZQUIERDO = 60;
-	final static Integer PARENTESIS_DERECHO = 70;
-	final static Integer SIN = 80;
-	final static Integer COS = 90;
-	final static Integer TAN = 100;
-	final static Integer E = 110;
-	final static Integer LOG = 120;
-	final static Integer LN = 130;
-	final static Integer EXP = 140;
+	public final static Integer ERROR = -1;
+	public final static Integer FIN = 0;
+	public final static Integer NUMERO = 10;
+	public final static Integer MAS = 20;
+	public final static Integer MENOS = 30;
+	public final static Integer POR = 40;
+	public final static Integer ENTRE = 50;
+	public final static Integer PARENTESIS_IZQUIERDO = 60;
+	public final static Integer PARENTESIS_DERECHO = 70;
+	public final static Integer SIN = 80;
+	public final static Integer COS = 90;
+	public final static Integer TAN = 100;
+	public final static Integer E = 110;
+	public final static Integer LOG = 120;
+	public final static Integer LN = 130;
+	public final static Integer EXP = 140;
 }

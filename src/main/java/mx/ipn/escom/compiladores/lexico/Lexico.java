@@ -53,55 +53,45 @@ public class Lexico{
 						return Token.NUMERO;
 					}
 				}
-				switch(auxLexema) {
-					case "+":
-						lexema = auxLexema;
-						return Token.MAS;
-					case "-":
-						lexema = auxLexema;
-						return Token.MENOS;
-					case "*":
-						lexema = auxLexema;
-						return Token.POR;
-					case "/":
-						lexema = auxLexema;
-						return Token.ENTRE;
-					case "(":
-						lexema = auxLexema;
-						return Token.PARENTESIS_IZQUIERDO;
-					case ")":
-						lexema = auxLexema;
-						return Token.PARENTESIS_DERECHO;
-					case "^":
-						lexema = auxLexema;
-						return Token.EXP;
-					case "e":
-						lexema = auxLexema;
-						return Token.E;
-					case "sin":
-						lexema = auxLexema;
-						return Token.SIN;
-					case "cos":
-						lexema = auxLexema;
-						return Token.COS;
-					case "tan":
-						lexema = auxLexema;
-						return Token.TAN;
-					case "log":
-						lexema = auxLexema;
-						return Token.LOG;
-					case "ln":
-						lexema = auxLexema;
-						return Token.LN;
-					default:
-						break;
-				}
+				lexema = auxLexema;
+				if (auxLexema.equals("+"))
+					return Token.MAS;
+				else if(auxLexema.equals("-"))
+					return Token.MENOS;
+				else if(auxLexema.equals("*"))
+					return Token.POR;
+				else if(auxLexema.equals("/"))
+					return Token.ENTRE;
+				else if(auxLexema.equals("("))
+					return Token.PARENTESIS_IZQUIERDO;
+				else if(auxLexema.equals(")"))
+					return Token.PARENTESIS_DERECHO;
+				else if(auxLexema.equals("^"))
+					return Token.EXP;
+				else if(auxLexema.equals("e"))
+					return Token.E;
+				else if(auxLexema.equals("sin"))
+					return Token.SIN;
+				else if(auxLexema.equals("cos"))
+					return Token.COS;
+				else if(auxLexema.equals("tan"))
+					return Token.TAN;
+				else if(auxLexema.equals("log"))
+					return Token.LOG;
+				else if(auxLexema.equals("ln"))
+					return Token.LN;
 			}
 			else {
 				auxLexema = "";
 			}
 		}
 		return Token.ERROR;
+	}
+	
+	public void regresarToken() {
+		Integer largo;
+		largo = lexema.length();
+		indexActual -= largo;
 	}
 	
 	private String nextString() {
@@ -126,6 +116,7 @@ public class Lexico{
 		}
 		return flag;
 	}
+	
 	private Boolean esPunto(String p) {
 		return p.equals(".");
 	}
